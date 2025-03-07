@@ -20,7 +20,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: ["http://localhost:3000", "https://bsc3rdyearpicnic.onrender.com"],
+  origin: ["http://localhost:3000", "https://thecmdians-79bd.vercel.app"],
   methods: ["GET", "POST", "DELETE", "PATCH"],
   credentials: true,
 }));
