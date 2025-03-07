@@ -1,10 +1,10 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const multer = require("multer");
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
-const cloudinary = require("cloudinary").v2; 
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
+import multer from "multer";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import { v2 as cloudinary } from "cloudinary";
 
 // Load environment variables
 dotenv.config();
@@ -24,6 +24,11 @@ app.use(cors({
   methods: ["GET", "POST", "DELETE", "PATCH"],
   credentials: true,
 }));
+
+import authRouter from "./routes/authRoute.js"
+
+
+app.use("/api/v1/auth", authRouter)
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
@@ -72,7 +77,7 @@ const userSchema = new mongoose.Schema({
   cloudinary_id: { type: String },
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 // ✅ Register User (Fixed Validation)
 app.post("/api/v1/register", upload.single("picture"), async (req, res) => {
